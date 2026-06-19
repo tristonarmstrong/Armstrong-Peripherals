@@ -67,7 +67,7 @@ module bottom_plate(){
      union(){
          difference(){
                     translate([-20,21.98,0]) color("#aaa") cube([21,70,7]);
-                    translate([-10,25,8]) rotate([-90,0,0]) cylinder(r=8, h=65);
+                    translate([-10,25,9]) rotate([-90,0,0]) cylinder(r=8, h=65);
                     translate([-15,80,3]) cube([20,10,5]);
                     // fillets ----
                     translate([-17, 24.8, 3]) rotate([0,0,-180]) fillet(3);
@@ -78,10 +78,10 @@ module bottom_plate(){
                  translate([0,0,0]) cube([10,2,5], center=true);
                  translate([0,1,0]) rotate([20,0,0]) cube([12,2,10], center=true);
                }
-               translate([-10,21,4.5]) difference(){
-                    translate([0,0,0]) cube([10,2,5], center=true);
-                    translate([0,-1,0]) rotate([-20,0,0]) cube([12,2,10], center=true);
-              }
+           translate([-10,21,4.5]) difference(){
+                translate([0,0,0]) cube([10,2,5], center=true);
+                translate([0,-1,0]) rotate([-20,0,0]) cube([12,2,10], center=true);
+          }
     }
  }
  module battery(){
