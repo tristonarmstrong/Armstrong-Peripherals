@@ -4,12 +4,12 @@
         translate([10, 25, 0]) m2_standoff(height=10, width=2.4);
 }
 
-*difference(){
+difference(){
     translate([0,0,9]) top_plate();
     all_bolt_holes();
 }
 
-union(){
+*union(){
     battery_slot();
     bottom_plate_micro_controller_slot();
     difference(){
