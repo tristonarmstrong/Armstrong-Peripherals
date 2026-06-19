@@ -1,12 +1,23 @@
-translate([0,0,9]) top_plate();
+*difference(){
+    translate([0,0,9]) top_plate();
+    all_bolt_holes();
+}
+
 *union(){
+    battery_slot();
+    difference(){
         bottom_plate();
-        battery_slot();
+        all_bolt_holes();
+        }
 }
 
 *battery();
-*translate([0,0,0]) m2_standoff();
 *key_switch();
+
+difference(){
+    cube([8,8,3], center=true);
+    translate([0,0,-2]) m2_standoff();
+    }
 
 module fillet(radius=8){
     translate([0, 0, -5]) linear_extrude( 10 ){
@@ -65,5 +76,23 @@ module key_switch(){
     translate([10,38.5,4.5]) rotate([0,0,-90]) import("kailhlowprofilev102.stl");
 }
 module m2_standoff(){
-    cylinder(r=2,h=5);
+    cylinder(r=2,h=14, $fn = 20);
  }
+
+module all_bolt_holes(){
+    // outer standoffs
+standoff_height =-2;
+translate([10,26,standoff_height]) m2_standoff();
+translate([60,27,standoff_height]) m2_standoff();
+translate([35,26,standoff_height]) m2_standoff();
+translate([127,7,standoff_height]) m2_standoff();
+translate([127,40,standoff_height]) m2_standoff();
+translate([127,85,standoff_height]) m2_standoff();
+translate([95.5,87,standoff_height]) m2_standoff();
+translate([57.25,87,standoff_height]) m2_standoff();
+translate([10,87,standoff_height]) m2_standoff();
+
+// inner standoffs
+translate([57,52,standoff_height]) m2_standoff();
+translate([95,52,standoff_height]) m2_standoff();
+}
