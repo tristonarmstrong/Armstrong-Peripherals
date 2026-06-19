@@ -9,6 +9,7 @@ union(){
     difference(){
         bottom_plate();
         all_bolt_holes();
+        #all_bolt_hole_counter_sinks();
         }
 }
 
@@ -89,8 +90,8 @@ module bottom_plate(){
 module key_switch(){
     translate([10,38.5,4.5]) rotate([0,0,-90]) import("kailhlowprofilev102.stl");
 }
-module m2_standoff(){
-    cylinder(r=1.1,h=14, $fn = 20);
+module m2_standoff(height=14, width=2.2){
+    cylinder(r=width/2,h=height, $fn = 20);
  }
 
 module all_bolt_holes(){   
@@ -120,3 +121,23 @@ module bottom_plate_micro_controller_slot(){
         translate([127,85,0]) m2_standoff();
     }
 }
+module all_bolt_hole_counter_sinks(){
+    // outer standoffs
+        standoff_height =-.1;
+        phys_height = 1.2;
+        phys_width = 3.75;
+        translate([10,26,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([60,27,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([35,26,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([127,7,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([127,40,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([127,85,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([95.5,87,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([57.25,87,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([10,87,standoff_height]) m2_standoff(phys_height, phys_width);
+
+        // inner standoffs
+        translate([57,52,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([95,52,standoff_height]) m2_standoff(phys_height, phys_width);
+    }
+   
