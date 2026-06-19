@@ -1,4 +1,5 @@
-difference(){
+// standoff with hole
+*difference(){
         translate([10, 25, 3]) m2_standoff(height=6.25, width=4);
         translate([10, 25, 0]) m2_standoff(height=10, width=2.4);
 }
@@ -8,7 +9,7 @@ difference(){
     all_bolt_holes();
 }
 
-*union(){
+union(){
     battery_slot();
     bottom_plate_micro_controller_slot();
     difference(){
