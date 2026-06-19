@@ -1,4 +1,4 @@
-*difference(){
+difference(){
     translate([0,0,9]) top_plate();
     all_bolt_holes();
 }
@@ -14,11 +14,6 @@
 *battery();
 *key_switch();
 
-difference(){
-    cube([8,8,3], center=true);
-    translate([0,0,-2]) m2_standoff();
-    }
-
 module fillet(radius=8){
     translate([0, 0, -5]) linear_extrude( 10 ){
             difference(){
@@ -29,7 +24,10 @@ module fillet(radius=8){
 }
 module top_plate(){
     difference(){
-        color("#ccc") import("cad.stl");
+        minkowski(){
+            color("#ccc") import("cad.stl");
+            cylinder(r=.1, h=0.001);
+         }
         translate([123.2, 8.4, 0]) rotate([0,0,-90]) fillet();
         translate([123.2,84, 0]) rotate([0,0,0]) fillet();
         translate([8, 29.9, 0]) rotate([0,0,-180]) fillet();
@@ -76,7 +74,7 @@ module key_switch(){
     translate([10,38.5,4.5]) rotate([0,0,-90]) import("kailhlowprofilev102.stl");
 }
 module m2_standoff(){
-    cylinder(r=2,h=14, $fn = 20);
+    cylinder(r=1,h=14, $fn = 20);
  }
 
 module all_bolt_holes(){
