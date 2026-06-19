@@ -1,5 +1,5 @@
 difference(){
-        translate([10, 25, 3]) m2_standoff(height=5.25, width=4);
+        translate([10, 25, 3]) m2_standoff(height=6.25, width=4);
         translate([10, 25, 0]) m2_standoff(height=10, width=2.4);
 }
 
@@ -35,6 +35,7 @@ module fillet(radius=8){
 }
 module top_plate(){
     difference(){
+        // minkowski shrinks the key slots ever so slightly
         minkowski(){
             color("#ccc") import("cad.stl");
             cylinder(r=.1, h=0.001);
@@ -99,7 +100,7 @@ module m2_standoff(height=14, width=2.2){
     cylinder(r=width/2,h=height, $fn = 20);
  }
 
-module all_bolt_holes(height=14, width=2.2){   
+module all_bolt_holes(height=14, width=2.4){   
     // outer standoffs
 standoff_height =-2;
 translate([10,26,standoff_height]) m2_standoff(height, width);
