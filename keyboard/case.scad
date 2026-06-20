@@ -4,24 +4,25 @@
         translate([10, 25, 0]) m2_standoff(height=10, width=2.4);
 }
 
-difference(){
+*difference(){
     translate([0,0,9]) top_plate();
     all_bolt_holes();
 }
 
-*union(){
+union(){
     battery_slot();
-    bottom_plate_micro_controller_slot();
+    translate([15,0,0]) bottom_plate_micro_controller_slot();
     difference(){
         bottom_plate();
         all_bolt_holes();
-        #all_bolt_hole_counter_sinks();
+        all_bolt_hole_counter_sinks();
         }
 }
 
+
 *battery();
 *key_switch();
-*translate([120,54,3]) {
+*translate([137.8,54,3]) {
     micro_controller();
 }
 
@@ -35,31 +36,37 @@ module fillet(radius=8){
         }
 }
 module top_plate(){
-    difference(){
-        // minkowski shrinks the key slots ever so slightly
-        minkowski(){
-            color("#ccc") import("cad.stl");
-            cylinder(r=.1, h=0.001);
-         }
-        translate([123.2, 8.4, 0]) rotate([0,0,-90]) fillet();
-        translate([123.2,84, 0]) rotate([0,0,0]) fillet();
-        translate([8, 29.9, 0]) rotate([0,0,-180]) fillet();
-        translate([8,84, 0]) rotate([0,0,90]) fillet();    
-        translate([0,0,-2]) minkowski(){
-            cube([60, 20, 5]);
-            cylinder(r=2, h=1);
-         }
+    union(){
+        difference(){
+                translate([130, .32, -.65]) cube([20, 91.8, 1.3]);
+                translate([142, 8.4, 0]) rotate([0,0,-90]) fillet();
+                translate([142,84, 0]) rotate([0,0,0]) fillet();
+            }
+        difference(){
+            // minkowski shrinks the key slots ever so slightly
+            minkowski(){
+                color("#ccc") import("cad.stl");
+                cylinder(r=.1, h=0.001);
+             }
             
-        translate([80,-50,-5]) cylinder(r=62, h=10);
-        translate([71.5,21, 0]) rotate([0,0,180]) fillet(10);  
+            translate([8, 29.9, 0]) rotate([0,0,-180]) fillet();
+            translate([8,84, 0]) rotate([0,0,90]) fillet();    
+            translate([0,0,-2]) minkowski(){
+                cube([60, 20, 5]);
+                cylinder(r=2, h=1);
+             }
+                
+            translate([80,-50,-5]) cylinder(r=62, h=10);
+            translate([71.5,21, 0]) rotate([0,0,180]) fillet(10);  
+            }
         }
     }
 
 module bottom_plate(){
     translate([0,0,0]) difference(){
-        translate([0,0.5,0]) color("#aaa") cube([131,91.6,3]);
-        translate([123.2, 8.4, 0]) rotate([0,0,-90]) fillet();
-        translate([123.2,84, 0]) rotate([0,0,0]) fillet();
+        translate([0,0.5,0]) color("#aaa") cube([150,91.6,3]);
+        translate([142, 8.4, 0]) rotate([0,0,-90]) fillet();
+        translate([142,84, 0]) rotate([0,0,0]) fillet();
            
         translate([0,0,-2]) minkowski(){
             cube([60, 20, 5]);
@@ -103,30 +110,34 @@ module m2_standoff(height=14, width=2.2){
 
 module all_bolt_holes(height=14, width=2.4){   
     // outer standoffs
-standoff_height =-2;
-translate([10,26,standoff_height]) m2_standoff(height, width);
-translate([60,27,standoff_height]) m2_standoff(height, width);
-translate([35,26,standoff_height]) m2_standoff(height, width);
-translate([127,7,standoff_height]) m2_standoff(height, width);
-translate([127,40,standoff_height]) m2_standoff(height, width);
-translate([127,85,standoff_height]) m2_standoff(height, width);
-translate([95.5,87,standoff_height]) m2_standoff(height, width);
-translate([57.25,87,standoff_height]) m2_standoff(height, width);
-translate([10,87,standoff_height]) m2_standoff(height, width);
+    standoff_height =-2;
+    translate([10,26,standoff_height]) m2_standoff(height, width);
+    translate([19,60,standoff_height]) m2_standoff(height, width);
+    translate([60,27,standoff_height]) m2_standoff(height, width);
+    translate([35,26,standoff_height]) m2_standoff(height, width);
+    translate([105,9.5,standoff_height]) m2_standoff(height, width);
+    translate([86,14.5,standoff_height]) m2_standoff(height, width);
+    translate([116.5,40,standoff_height]) m2_standoff(height, width);
+    translate([116.5,87,standoff_height]) m2_standoff(height, width);
+    translate([147,7,standoff_height]) m2_standoff(height, width);
+    translate([147,40,standoff_height]) m2_standoff(height, width);
+    translate([147,85,standoff_height]) m2_standoff(height, width);
+    translate([95.5,87,standoff_height]) m2_standoff(height, width);
+    translate([57.25,87,standoff_height]) m2_standoff(height, width);
+    translate([10,87,standoff_height]) m2_standoff(height, width);
 
-// inner standoffs
-translate([57,52,standoff_height]) m2_standoff();
-translate([95,52,standoff_height]) m2_standoff();
+    // inner standoffs
+    translate([57,52,standoff_height]) m2_standoff();
+    translate([95,52,standoff_height]) m2_standoff();
 }
 module micro_controller(){
     color("#5f5") import("nRF52840.3mf");
 }
 module bottom_plate_micro_controller_slot(){
     difference(){
-        translate([120+ -18.5,55+0,3+0]) cube([25,36.5,3]);
-        translate([120+ -15.25,55+2,3+1]) cube([18.5,33.5,3]);
-        translate([120+ -12,55+30,3+1]) cube([12,10,3]);
-        translate([127,85,0]) m2_standoff();
+        translate([120+ -16,55+0,3+0]) cube([25,36.5,2]);
+        translate([120+ -12.5,55+2,3+0]) cube([18.5,33.5,4]);
+        translate([120+ -9,55+30,3+0]) cube([12,10,4]);
     }
 }
 module all_bolt_hole_counter_sinks(){
@@ -135,11 +146,13 @@ module all_bolt_hole_counter_sinks(){
         phys_height = 1.2;
         phys_width = 3.85;
         translate([10,26,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([19,60,standoff_height]) m2_standoff(phys_height, phys_width);
         translate([60,27,standoff_height]) m2_standoff(phys_height, phys_width);
         translate([35,26,standoff_height]) m2_standoff(phys_height, phys_width);
-        translate([127,7,standoff_height]) m2_standoff(phys_height, phys_width);
-        translate([127,40,standoff_height]) m2_standoff(phys_height, phys_width);
-        translate([127,85,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([105,9.5,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([86,14.5,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([116.5,40,standoff_height]) m2_standoff(phys_height, phys_width);
+        translate([116.5,87,standoff_height]) m2_standoff(phys_height, phys_width);
         translate([95.5,87,standoff_height]) m2_standoff(phys_height, phys_width);
         translate([57.25,87,standoff_height]) m2_standoff(phys_height, phys_width);
         translate([10,87,standoff_height]) m2_standoff(phys_height, phys_width);
