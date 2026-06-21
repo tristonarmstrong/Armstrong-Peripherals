@@ -9,7 +9,7 @@
     all_bolt_holes();
 }
 
-union(){
+*union(){
     battery_slot();
     translate([15,0,0]) bottom_plate_micro_controller_slot();
     difference(){
@@ -20,7 +20,7 @@ union(){
 }
 
 
-*battery();
+battery();
 *key_switch();
 *translate([137.8,54,3]) {
     micro_controller();
